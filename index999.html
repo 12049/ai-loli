@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>لولي بوت 🤖 - المساعد الذكي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* نظام ألوان محسن */
+        :root {
+            --primary: #2196F3;      /* أزرق سماوي */
+            --primary-dark: #1976D2; /* أزرق غامق */
+            --accent: #7B1FA2;       /* بنفسجي جميل */
+            --accent-light: #BA68C8; /* بنفسجي فاتح */
+            
+            /* ألوان فاتحة */
+            --bg-light: #F8FAFC;
+            --card-light: #FFFFFF;
+            --text-light: #1E293B;
+            --text-secondary-light: #64748B;
+            --border-light: #E2E8F0;
+            
+            /* ألوان داكنة */
+            --bg-dark: #0F172A;
+            --card-dark: #1E293B;
+            --text-dark: #F1F5F9;
+            --text-secondary-dark: #94A3B8;
+            --border-dark: #334155;
+            
+            /* ألوان ثابتة */
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --info: #3B82F6;
+            
+            /* إعدادات التصميم */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --transition: all 0.2s ease;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: var(--bg-light);
+            --bg-secondary: var(--card-light);
+            --text-primary: var(--text-light);
+            --text-secondary: var(--text-secondary-light);
+            --border-color: var(--border-light);
+            --card-bg: var(--card-light);
+            --hover-color: rgba(33, 150, 243, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: var(--bg-dark);
+            --bg-secondary: var(--card-dark);
+            --text-primary: var(--text-dark);
+            --text-secondary: var(--text-secondary-dark);
+            --border-color: var(--border-dark);
+            --card-bg: var(--card-dark);
+            --hover-color: rgba(33, 150, 243, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: var(--transition);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Landing Page - محسنة للسرعة */
+        .landing-page {
+            width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .bot-avatar {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .landing-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .landing-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 400px;
+            line-height: 1.4;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 25px 0;
+            max-width: 400px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .feature-desc {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            line-height: 1.3;
+        }
+
+        .start-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Chat Page - محسنة للسرعة */
+        .chat-page {
+            width: 100%;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            background: var(--bg-primary);
+        }
+
+        /* Header مع زر القائمة الجديد */
+        .chat-header {
+            padding: 12px 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .chat-title h2 {
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+        }
+
+        .chat-title p {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 8px;
+        }
+
+        .theme-toggle, .menu-toggle {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover, .menu-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* القائمة الجانبية */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            border-left: 3px solid var(--primary);
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .menu-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-header .bot-avatar-small {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            border: 2px solid white;
+        }
+
+        .menu-header-text h3 {
+            font-size: 1.1rem;
+            margin-bottom: 3px;
+        }
+
+        .menu-header-text p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .close-menu {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .menu-items {
+            flex: 1;
+            padding: 15px 0;
+            overflow-y: auto;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition);
+            border-right: 3px solid transparent;
+        }
+
+        .menu-item:hover {
+            background: var(--hover-color);
+            border-right-color: var(--primary);
+        }
+
+        .menu-item i {
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        .menu-item span {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .menu-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 8px 20px;
+        }
+
+        .menu-footer {
+            padding: 15px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+            backdrop-filter: blur(2px);
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* Chat Area - محسنة */
+        .chat-area {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: var(--bg-primary);
+        }
+
+        .suggestions-container {
+            margin: 12px 0 20px 0;
+        }
+
+        .suggestions-title {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .suggestions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+        }
+
+        .suggestion-btn {
+            background: var(--hover-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .suggestion-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* الرسائل - محسنة للأداء */
+        .message {
+            max-width: 85%;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            animation: messageSlide 0.2s ease-out;
+            line-height: 1.4;
+            word-break: break-word;
+            will-change: transform, opacity;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bot-message {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            align-self: flex-start;
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: white;
+            align-self: flex-end;
+        }
+
+        .message-content {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            margin-top: 6px;
+        }
+
+        /* مؤشر الكتابة - أخف */
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            margin-bottom: 8px;
+            width: 80px;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+        }
+
+        .typing-dots span {
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        /* Input Area - بسيط */
+        .input-area {
+            padding: 12px 15px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .message-form {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            outline: none;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            transition: var(--transition);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .message-input:focus {
+            border-color: var(--primary);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Toast Notifications - سريعة */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            left: 20px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            z-index: 10000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .toast-icon {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .toast-text {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .close-toast {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .landing-page {
+                padding: 15px;
+            }
+            
+            .bot-avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
+            }
+            
+            .landing-title {
+                font-size: 1.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .feature-card {
+                padding: 12px;
+            }
+            
+            .suggestions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .message {
+                max-width: 90%;
+                padding: 10px;
+            }
+            
+            .side-menu {
+                width: 85%;
+                right: -100%;
+            }
+        }
+
+        /* Hide scrollbar for performance */
+        .chat-area::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .chat-area::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-area::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <!-- Landing Page -->
+    <div class="landing-page" id="landingPage">
+        <div class="bot-avatar">
+            <i class="fas fa-robot"></i>
+        </div>
+        
+        <h1 class="landing-title">لولي بوت</h1>
+        <p class="landing-subtitle">
+            مساعدك الذكي للدردشة والإجابة على أسئلتك بسرعة ودقة
+        </p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h4 class="feature-title">سرعة فائقة</h4>
+                <p class="feature-desc">رد فوري على استفساراتك</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h4 class="feature-title">ذكاء حقيقي</h4>
+                <p class="feature-desc">يفهم الأسئلة ويعطي إجابات دقيقة</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h4 class="feature-title">خصوصية تامة</h4>
+                <p class="feature-desc">محادثاتك تمسح تلقائياً</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h4 class="feature-title">دردشة طبيعية</h4>
+                <p class="feature-desc">محادثات سلسة ومباشرة</p>
+            </div>
+        </div>
+        
+        <button class="start-btn" id="startBtn">
+            <i class="fas fa-comment"></i> ابدأ المحادثة
+        </button>
+    </div>
+
+    <!-- Chat Page -->
+    <div class="chat-page" id="chatPage">
+        <!-- Header مع زر القائمة -->
+        <div class="chat-header">
+            <div class="header-left">
+                <button class="back-btn" id="backBtn">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <div class="chat-title">
+                    <h2>لولي بوت</h2>
+                    <p>مساعدك الذكي</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" id="themeToggle" title="تبديل المظهر">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" id="menuToggle" title="القائمة">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area" id="chatArea">
+            <div class="message bot-message">
+                <div class="message-content">
+                    أهلاً بك! أنا لولي بوت جاهز لمساعدتك. اسألني عن أي شيء.
+                </div>
+                <div class="message-time" id="initialTime"></div>
+            </div>
+
+            <!-- Suggestions -->
+            <div class="suggestions-container" id="suggestionsContainer">
+                <div class="suggestions-title">
+                    <i class="fas fa-lightbulb"></i> جرب هذه الأسئلة:
+                </div>
+                <div class="suggestions-grid">
+                    <button class="suggestion-btn" data-suggestion="ما هو الذكاء الاصطناعي؟">ما هو الذكاء الاصطناعي؟</button>
+                    <button class="suggestion-btn" data-suggestion="كيف تعمل؟">كيف تعمل؟</button>
+                    <button class="suggestion-btn" data-suggestion="ما هي لغات البرمجة؟">ما هي لغات البرمجة؟</button>
+                    <button class="suggestion-btn" data-suggestion="من هو مطورك؟">من هو مطورك؟</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typing Indicator -->
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p style="margin-top: 6px; font-size: 0.75rem; text-align: center;">يكتب...</p>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <form class="message-form" id="messageForm">
+                <input type="text" class="message-input" id="messageInput" placeholder="اكتب رسالتك..." autocomplete="off">
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <button class="close-menu" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="menu-header">
+            <div class="bot-avatar-small">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="menu-header-text">
+                <h3>لولي بوت</h3>
+                <p>القائمة الرئيسية</p>
+            </div>
+        </div>
+        
+        <div class="menu-items">
+            <a href="#" class="menu-item" id="menuAbout">
+                <i class="fas fa-info-circle"></i>
+                <span>معلومات عن البوت</span>
+            </a>
+            
+            <a href="#" class="menu-item" id="menuDeveloper">
+                <i class="fas fa-user-tie"></i>
+                <span>معلومات المطور</span>
+            </a>
+            
+            <a href="#" class="menu-item" id="menuContact">
+                <i class="fas fa-envelope"></i>
+                <span>اتصل بنا</span>
+            </a>
+            
+            <div class="menu-divider"></div>
+            
+            <a href="#" class="menu-item" id="menuClear">
+                <i class="fas fa-trash"></i>
+                <span>مسح المحادثة</span>
+            </a>
+            
+            <a href="#" class="menu-item" id="menuNew">
+                <i class="fas fa-plus"></i>
+                <span>محادثة جديدة</span>
+            </a>
+            
+            <a href="#" class="menu-item" id="menuHelp">
+                <i class="fas fa-question-circle"></i>
+                <span>المساعدة</span>
+            </a>
+        </div>
+        
+        <div class="menu-footer">
+            <p>لولي بوت v3.5</p>
+            <p style="margin-top: 4px; font-size: 0.75rem;">© 2024 جميع الحقوق محفوظة</p>
+        </div>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="fas fa-info-circle toast-icon" id="toastIcon"></i>
+            <div class="toast-text" id="toastText"></div>
+        </div>
+        <button class="close-toast" id="closeToast">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- JavaScript المحسن -->
+    <script>
+        class OptimizedLoliBot {
+            constructor() {
+                this.messageCount = 1;
+                this.currentTheme = 'dark';
+                this.conversationHistory = [];
+                this.userId = 'user_' + Date.now();
+                this.sessionId = Date.now();
+                this.API_ENDPOINT = 'https://api-inference.huggingface.co/models/gpt2';
+                this.isTyping = false;
+                this.cache = new Map();
+                
+                // جمل وصفية مخففة
+                this.descriptiveOpeners = [
+                    "قال...",
+                    "رد...",
+                    "أجاب...",
+                    "أضاف...",
+                    "تابع..."
+                ];
+                
+                // ردود ذكية مسبقة التخزين
+                this.predefinedResponses = new Map([
+                    ['مرحبا', 'مرحباً بك! كيف يمكنني مساعدتك؟'],
+                    ['السلام عليكم', 'وعليكم السلام ورحمة الله وبركاته. كيف يمكنني خدمتك؟'],
+                    ['من أنت', 'أنا لولي بوت، مساعد ذكي يمكنه الإجابة على أسئلتك.'],
+                    ['كيف حالك', 'أنا بخير، شكراً لسؤالك! كيف يمكنني مساعدتك اليوم؟'],
+                    ['شكرا', 'العفو! دائماً سعيد بمساعدتك.'],
+                    ['من مطورك', 'مطوري هو محمد حسون، طالب هندسة ميكاترونيكس ومطور ويب.'],
+                    ['ما هي قدراتك', 'يمكنني الإجابة على الأسئلة العامة، المساعدة في البحث، وإجراء محادثات ذكية.'],
+                    ['ما هو الذكاء الاصطناعي', 'الذكاء الاصطناعي هو مجال في علوم الكمبيوتر يركز على بناء آلات ذكية قادرة على أداء المهام التي تتطلب ذكاءً بشرياً.'],
+                    ['كيف تعمل', 'أعمل عن طريق تحليل أسئلتك وإعطاء أفضل إجابة ممكنة بناءً على معلوماتي وخبرتي.'],
+                    ['ما هي لغات البرمجة', 'لغات البرمجة هي أدوات نستخدمها لتوجيه الكمبيوتر لأداء مهام محددة. أشهرها: Python, JavaScript, Java, C++.']
+                ]);
+                
+                this.init();
+            }
+            
+            init() {
+                this.cacheElements();
+                this.setupEventListeners();
+                this.loadPreferences();
+                this.setupPerformance();
+                console.log('🚀 لولي بوت جاهز');
+            }
+            
+            cacheElements() {
+                // الصفحات
+                this.landingPage = document.getElementById('landingPage');
+                this.chatPage = document.getElementById('chatPage');
+                
+                // الأزرار
+                this.startBtn = document.getElementById('startBtn');
+                this.backBtn = document.getElementById('backBtn');
+                this.themeToggle = document.getElementById('themeToggle');
+                this.menuToggle = document.getElementById('menuToggle');
+                this.closeMenu = document.getElementById('closeMenu');
+                this.sendBtn = document.getElementById('sendBtn');
+                
+                // العناصر الرئيسية
+                this.chatArea = document.getElementById('chatArea');
+                this.messageInput = document.getElementById('messageInput');
+                this.typingIndicator = document.getElementById('typingIndicator');
+                this.suggestionsContainer = document.getElementById('suggestionsContainer');
+                this.sideMenu = document.getElementById('sideMenu');
+                this.menuOverlay = document.getElementById('menuOverlay');
+                
+                // الإشعارات
+                this.toast = document.getElementById('toast');
+                this.toastText = document.getElementById('toastText');
+                this.toastIcon = document.getElementById('toastIcon');
+                this.closeToast = document.getElementById('closeToast');
+                
+                // عناصر القائمة
+                this.menuAbout = document.getElementById('menuAbout');
+                this.menuDeveloper = document.getElementById('menuDeveloper');
+                this.menuContact = document.getElementById('menuContact');
+                this.menuClear = document.getElementById('menuClear');
+                this.menuNew = document.getElementById('menuNew');
+                this.menuHelp = document.getElementById('menuHelp');
+                
+                // اقتراحات
+                this.suggestionBtns = document.querySelectorAll('.suggestion-btn');
+            }
+            
+            setupEventListeners() {
+                // تحسين الأداء: استخدام event delegation
+                document.addEventListener('click', (e) => {
+                    const target = e.target;
+                    
+                    // بدء المحادثة
+                    if (target === this.startBtn || target.closest('#startBtn')) {
+                        e.preventDefault();
+                        this.startChat();
+                    }
+                    
+                    // العودة
+                    if (target === this.backBtn || target.closest('#backBtn')) {
+                        e.preventDefault();
+                        this.goBack();
+                    }
+                    
+                    // تبديل الثيم
+                    if (target === this.themeToggle || target.closest('#themeToggle')) {
+                        e.preventDefault();
+                        this.toggleTheme();
+                    }
+                    
+                    // القائمة
+                    if (target === this.menuToggle || target.closest('#menuToggle')) {
+                        e.preventDefault();
+                        this.openMenu();
+                    }
+                    
+                    // إغلاق القائمة
+                    if (target === this.closeMenu || target === this.menuOverlay) {
+                        e.preventDefault();
+                        this.closeMenu();
+                    }
+                    
+                    // إرسال الرسالة
+                    if (target === this.sendBtn || target.closest('#sendBtn')) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                    
+                    // إغلاق الإشعار
+                    if (target === this.closeToast || target.closest('#closeToast')) {
+                        e.preventDefault();
+                        this.hideToast();
+                    }
+                    
+                    // اقتراحات الأسئلة
+                    if (target.classList.contains('suggestion-btn')) {
+                        e.preventDefault();
+                        this.messageInput.value = target.dataset.suggestion;
+                        this.messageInput.focus();
+                    }
+                });
+                
+                // إرسال بالإنتر
+                this.messageInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+                
+                // عناصر القائمة
+                this.menuAbout.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showAbout();
+                    this.closeMenu();
+                });
+                
+                this.menuDeveloper.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showDeveloper();
+                    this.closeMenu();
+                });
+                
+                this.menuContact.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showContact();
+                    this.closeMenu();
+                });
+                
+                this.menuClear.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.clearChat();
+                    this.closeMenu();
+                });
+                
+                this.menuNew.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.newChat();
+                    this.closeMenu();
+                });
+                
+                this.menuHelp.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showHelp();
+                    this.closeMenu();
+                });
+                
+                // حفظ البيانات عند الخروج
+                window.addEventListener('beforeunload', () => this.saveData());
+            }
+            
+            setupPerformance() {
+                // تفعيل التخزين المؤقت
+                if ('caches' in window) {
+                    caches.open('loli-bot-v1').then(cache => {
+                        console.log('📦 التخزين المؤقت مفعل');
+                    });
+                }
+                
+                // تنظيف الذاكرة كل 5 دقائق
+                setInterval(() => {
+                    if (this.cache.size > 100) {
+                        this.cache.clear();
+                    }
+                }, 5 * 60 * 1000);
+            }
+            
+            startChat() {
+                this.landingPage.style.display = 'none';
+                this.chatPage.style.display = 'flex';
+                this.messageInput.focus();
+                this.showToast('بدأت المحادثة', 'info');
+            }
+            
+            goBack() {
+                if (this.messageCount > 1 && !confirm('هل تريد العودة للصفحة الرئيسية؟ سيتم حفظ المحادثة.')) {
+                    return;
+                }
+                this.saveData();
+                this.chatPage.style.display = 'none';
+                this.landingPage.style.display = 'flex';
+                this.showToast('تم حفظ المحادثة', 'success');
+            }
+            
+            toggleTheme() {
+                this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+                document.body.setAttribute('data-theme', this.currentTheme);
+                localStorage.setItem('loli_theme', this.currentTheme);
+                
+                const icon = this.themeToggle.querySelector('i');
+                icon.className = this.currentTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+                
+                this.showToast(`المظهر: ${this.currentTheme === 'dark' ? 'داكن' : 'فاتح'}`, 'info');
+            }
+            
+            openMenu() {
+                this.sideMenu.classList.add('active');
+                this.menuOverlay.classList.add('active');
+            }
+            
+            closeMenu() {
+                this.sideMenu.classList.remove('active');
+                this.menuOverlay.classList.remove('active');
+            }
+            
+            async sendMessage() {
+                if (this.isTyping) return;
+                
+                const message = this.messageInput.value.trim();
+                if (!message) return;
+                
+                console.log('📤 إرسال:', message.substring(0, 50) + '...');
+                
+                // إضافة رسالة المستخدم
+                this.addMessage(message, 'user');
+                this.messageInput.value = '';
+                
+                // إخفاء الاقتراحات
+                if (this.messageCount <= 2) {
+                    this.suggestionsContainer.style.display = 'none';
+                }
+                
+                // البحث في الردود المسبقة أولاً
+                const cachedResponse = this.getCachedResponse(message);
+                if (cachedResponse) {
+                    this.addMessage(cachedResponse, 'bot');
+                    this.messageCount += 2;
+                    this.saveData();
+                    return;
+                }
+                
+                // إظهار مؤشر الكتابة
+                this.showTyping();
+                this.isTyping = true;
+                
+                try {
+                    // محاولة الرد الذكي
+                    const response = await this.getSmartResponse(message);
+                    
+                    // إخفاء مؤشر الكتابة وإضافة الرد
+                    this.hideTyping();
+                    this.addMessage(response, 'bot');
+                    
+                    // تحديث البيانات
+                    this.messageCount += 2;
+                    this.conversationHistory.push({
+                        user: message,
+                        bot: response,
+                        timestamp: Date.now()
+                    });
+                    
+                    // تخزين في الكاش
+                    this.cache.set(message.toLowerCase(), response);
+                    
+                    // حفظ البيانات
+                    this.saveData();
+                    
+                } catch (error) {
+                    this.hideTyping();
+                    console.error('❌ خطأ:', error.message);
+                    
+                    // استخدام رد افتراضي
+                    const fallbackResponse = this.getFallbackResponse(message);
+                    this.addMessage(fallbackResponse, 'bot');
+                    
+                    this.showToast('جاري استخدام رد بديل', 'warning');
+                }
+                
+                this.isTyping = false;
+            }
+            
+            getCachedResponse(message) {
+                // البحث في الردود المسبقة
+                const lowerMessage = message.toLowerCase();
+                
+                for (const [key, response] of this.predefinedResponses) {
+                    if (lowerMessage.includes(key.toLowerCase())) {
+                        return response;
+                    }
+                }
+                
+                // البحث في الكاش
+                return this.cache.get(lowerMessage);
+            }
+            
+            async getSmartResponse(message) {
+                // محاولة API أول
+                try {
+                    const alakrebAPI = `https://alakreb.vercel.app/api/ai/gpt-1?q=${encodeURIComponent(this.buildPrompt(message))}`;
+                    
+                    const response = await fetch(alakrebAPI, {
+                        method: 'GET',
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data && data.message) {
+                            return this.cleanResponse(data.message);
+                        }
+                    }
+                } catch (error) {
+                    console.warn('⚠️ API الأول فشل:', error.message);
+                }
+                
+                // استخدام رد ذكي بديل
+                return this.generateSmartResponse(message);
+            }
+            
+            buildPrompt(userMessage) {
+                const randomOpener = this.descriptiveOpeners[Math.floor(Math.random() * this.descriptiveOpeners.length)];
+                const history = this.conversationHistory.slice(-3).map(msg => 
+                    `المستخدم: ${msg.user}\nلولي: ${msg.bot}`
+                ).join('\n\n') || 'بداية محادثة';
+                
+                return `أجب بالعربية فقط. كن مباشراً وواضحاً.
+
+تاريخ المحادثة:
+${history}
+
+سؤال المستخدم:
+${userMessage}
+
+الجملة الوصفية (استخدمها إذا كان الموضوع عاطفياً):
+${randomOpener}
+
+تذكر: لا تستخدم إيموجيات، كن مفيداً ودقيقاً.`;
+            }
+            
+            generateSmartResponse(message) {
+                const lowerMessage = message.toLowerCase();
+                
+                // تحليل السؤال وإعطاء رد ذكي
+                if (lowerMessage.includes('؟') || lowerMessage.includes('ما') || lowerMessage.includes('كيف')) {
+                    const responses = [
+                        'بناءً على سؤالك، أستطيع أن أقول...',
+                        'هذا سؤال مهم. دعني أجيب عليه بوضوح...',
+                        'أفهم ما تسأل عنه. الإجابة هي...',
+                        'سؤال جيد. إليك ما أعرفه عن هذا الموضوع...'
+                    ];
+                    
+                    const baseResponse = responses[Math.floor(Math.random() * responses.length)];
+                    return `${baseResponse} يمكنني تقديم مزيد من التفاصيل إذا أردت.`;
+                }
+                
+                // رد عام ذكي
+                const generalResponses = [
+                    'أفهم سؤلك. هل يمكنك توضيح ما تريد معرفته بالضبط؟',
+                    'هذا موضوع مثير للاهتمام. ماذا تريد أن تعرف عنه تحديداً؟',
+                    'يمكنني مساعدتك في هذا. ما هو الجانب الذي يهمك أكثر؟',
+                    'سأفكر في أفضل طريقة للإجابة على سؤالك. هل لديك تفاصيل أكثر؟'
+                ];
+                
+                return generalResponses[Math.floor(Math.random() * generalResponses.length)];
+            }
+            
+            getFallbackResponse(message) {
+                const responses = [
+                    'أحتاج إلى مزيد من التوضيح للإجابة بدقة. هل يمكنك إعادة صياغة سؤالك؟',
+                    'سأحاول الإجابة بأفضل ما لدي. هل لديك تفاصيل أكثر عن سؤالك؟',
+                    'هذا موضوع معقد بعض الشيء. دعني أحاول فهمه بشكل أفضل أولاً.',
+                    'أعتقد أن سؤالك يحتاج إلى مزيد من الشرح. هل يمكنك إعطائي المزيد من المعلومات؟'
+                ];
+                
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+            
+            cleanResponse(text) {
+                return text
+                    .replace(/[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\w\s.,!?\-:]/g, '')
+                    .replace(/\n\s*\n/g, '\n')
+                    .trim();
+            }
+            
+            addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message`;
+                
+                const time = new Date().toLocaleTimeString('ar-EG', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                messageDiv.innerHTML = `
+                    <div class="message-content">${text}</div>
+                    <div class="message-time">${time}</div>
+                `;
+                
+                this.chatArea.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+            
+            showTyping() {
+                this.typingIndicator.style.display = 'block';
+                this.sendBtn.disabled = true;
+                this.scrollToBottom();
+            }
+            
+            hideTyping() {
+                this.typingIndicator.style.display = 'none';
+                this.sendBtn.disabled = false;
+            }
+            
+            scrollToBottom() {
+                requestAnimationFrame(() => {
+                    this.chatArea.scrollTop = this.chatArea.scrollHeight;
+                });
+            }
+            
+            clearChat() {
+                if (confirm('هل تريد مسح جميع الرسائل؟')) {
+                    this.conversationHistory = [];
+                    this.chatArea.innerHTML = `
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                أهلاً بك! أنا لولي بوت جاهز لمساعدتك.
+                            </div>
+                            <div class="message-time">${this.getCurrentTime()}</div>
+                        </div>
+                    `;
+                    this.messageCount = 1;
+                    this.suggestionsContainer.style.display = 'block';
+                    localStorage.removeItem(`loli_session_${this.userId}`);
+                    this.showToast('تم مسح المحادثة', 'success');
+                }
+            }
+            
+            newChat() {
+                this.saveData();
+                this.sessionId = Date.now();
+                this.conversationHistory = [];
+                this.chatArea.innerHTML = `
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            أهلاً بك في محادثة جديدة! كيف يمكنني مساعدتك؟
+                        </div>
+                        <div class="message-time">${this.getCurrentTime()}</div>
+                    </div>
+                `;
+                this.messageCount = 1;
+                this.suggestionsContainer.style.display = 'block';
+                this.showToast('بدأت محادثة جديدة', 'info');
+            }
+            
+            // وظائف القائمة
+            showAbout() {
+                this.addMessage(`🤖 **عن لولي بوت**
+
+لولي بوت هو مساعد ذكي يتحدث العربية بطلاقة.
+
+**المميزات:**
+• سرعة في الردود
+• دقة في المعلومات
+• خصوصية كاملة
+• واجهة سهلة
+
+**كيفية الاستخدام:**
+1. اكتب سؤالك
+2. اضغط إرسال
+3. احصل على إجابة فورية
+
+المحادثات تحفظ لمدة 12 ساعة ثم تمسح تلقائياً.`, 'bot');
+            }
+            
+            showDeveloper() {
+                this.addMessage(`👨‍💻 **المطور**
+
+الاسم: محمد حسون
+التخصص: هندسة ميكاترونيكس
+المهارات: تطوير ويب، برمجة، ذكاء اصطناعي
+
+الاتصال: https://wa.me/+963952198305
+(للاستفسارات التقنية فقط)
+
+شعار المطور: "أطور لأتعلم ولأفيد"`, 'bot');
+            }
+            
+            showContact() {
+                this.addMessage(`📞 **اتصل بنا**
+
+للتواصل مع المطور:
+واتساب: https://wa.me/+963952198305
+
+للإبلاغ عن مشاكل:
+1. وصف المشكلة
+2. لقطة شاشة
+3. نوع الجهاز
+
+ساعات العمل: 9 ص - 5 م
+توقعات الرد: خلال 24 ساعة`, 'bot');
+            }
+            
+            showHelp() {
+                this.addMessage(`❓ **المساعدة**
+
+**كيف تستخدم البوت:**
+1. اكتب سؤالك في المربع الأسفل
+2. اضغط Enter أو زر الإرسال
+3. انتظر الرد
+
+**نصائح:**
+• كن واضحاً في صياغة السؤال
+• استخدم الاقتراحات للبدء السريع
+• للأسئلة التقنية: اسأل عن المطور
+
+**مشاكل شائعة:**
+• لا رد: تحقق من الإنترنت
+• رد بطيء: جارٍ المعالجة
+• أخطاء: أعد تحميل الصفحة
+
+للمساعدة الفورية: راسل المطور على الواتساب.`, 'bot');
+            }
+            
+            // نظام التخزين والتخزين المؤقت
+            saveData() {
+                try {
+                    const data = {
+                        conversationHistory: this.conversationHistory.slice(-20), // حفظ آخر 20 رسالة فقط
+                        messageCount: this.messageCount,
+                        theme: this.currentTheme,
+                        lastUpdated: Date.now(),
+                        cache: Array.from(this.cache.entries()).slice(0, 50) // حفظ 50 كاش
+                    };
+                    
+                    localStorage.setItem(`loli_session_${this.userId}`, JSON.stringify(data));
+                } catch (error) {
+                    console.warn('⚠️ خطأ في الحفظ:', error);
+                }
+            }
+            
+            loadPreferences() {
+                try {
+                    // تحميل الثيم
+                    const savedTheme = localStorage.getItem('loli_theme') || 'dark';
+                    this.currentTheme = savedTheme;
+                    document.body.setAttribute('data-theme', this.currentTheme);
+                    
+                    const icon = this.themeToggle.querySelector('i');
+                    icon.className = this.currentTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+                    
+                    // تحميل الجلسة
+                    const saved = localStorage.getItem(`loli_session_${this.userId}`);
+                    if (saved) {
+                        const data = JSON.parse(saved);
+                        
+                        // التحقق من أن الجلسة ليست أقدم من 12 ساعة
+                        if (Date.now() - data.lastUpdated < 12 * 60 * 60 * 1000) {
+                            this.conversationHistory = data.conversationHistory || [];
+                            this.messageCount = data.messageCount || 1;
+                            this.cache = new Map(data.cache || []);
+                            
+                            // إعادة تحميل المحادثة
+                            if (this.conversationHistory.length > 0) {
+                                this.conversationHistory.forEach(msg => {
+                                    this.addMessage(msg.user, 'user');
+                                    this.addMessage(msg.bot, 'bot');
+                                });
+                                this.suggestionsContainer.style.display = 'none';
+                            }
+                        }
+                    }
+                    
+                    // تحديث الوقت
+                    document.getElementById('initialTime').textContent = this.getCurrentTime();
+                    
+                } catch (error) {
+                    console.warn('⚠️ خطأ في التحميل:', error);
+                }
+            }
+            
+            // نظام الإشعارات
+            showToast(message, type = 'info') {
+                const icons = {
+                    success: 'fa-check-circle',
+                    error: 'fa-exclamation-circle',
+                    warning: 'fa-exclamation-triangle',
+                    info: 'fa-info-circle'
+                };
+                
+                const colors = {
+                    success: '#10B981',
+                    error: '#EF4444',
+                    warning: '#F59E0B',
+                    info: '#3B82F6'
+                };
+                
+                this.toastIcon.className = `fas ${icons[type] || icons.info} toast-icon`;
+                this.toastIcon.style.color = colors[type] || colors.info;
+                this.toastText.textContent = message;
+                
+                this.toast.classList.add('show');
+                
+                // إخفاء تلقائي بعد 4 ثواني
+                setTimeout(() => this.hideToast(), 4000);
+            }
+            
+            hideToast() {
+                this.toast.classList.remove('show');
+            }
+            
+            getCurrentTime() {
+                return new Date().toLocaleTimeString('ar-EG', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+        }
+        
+        // بدء التطبيق
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                window.loliBot = new OptimizedLoliBot();
+            } catch (error) {
+                console.error('❌ فشل تحميل البوت:', error);
+                alert('حدث خطأ في تحميل البوت. يرجى تحديث الصفحة.');
+            }
+        });
+    </script>
+</body>
+</html>

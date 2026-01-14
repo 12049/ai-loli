@@ -1,0 +1,161 @@
+/* File: style.css
+   الوصف: تنسيق واجهة index.html لمنصة الاختبارات التعليمية
+   ملاحظة: بيانات أسئلة الاختبارات محفوظة في ملف JSON خارجي (questions.json)
+*/
+
+/* إعادة ضبط المسافات وحدود الصناديق */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* إعداد الخط الافتراضي ولون الخلفية العام */
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* ترويسة الصفحة */
+header {
+  background-color: #4a90e2;   /* لون أزرق مريح */
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+/* العنوان الرئيسي داخل الترويسة */
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* الوصف الصغير تحت العنوان */
+header p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* المحتوى الرئيسي */
+main {
+  max-width: 800px;           /* عرض محصور لسهولة القراءة */
+  margin: 2rem auto;          /* ترك مساحة أعلى وأسفل */
+  padding: 0 1rem;            /* مسافة جانبية */
+}
+
+/* حاوية أزرار الوحدات */
+#units-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;                  /* مسافة بين الأزرار */
+  margin-bottom: 2rem;        /* مسافة أسفل القسم */
+}
+
+/* زر الوحدة الدراسية */
+.unit-button {
+  background-color: #fff;
+  border: 2px solid #4a90e2;  /* إطار أزرق */
+  color: #4a90e2;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* تأثير المرور على زر الوحدة */
+.unit-button:hover {
+  background-color: #4a90e2;
+  color: #fff;
+}
+
+/* القسم الخاص بالدروس؛ مخفي افتراضياً */
+.hidden {
+  display: none;
+}
+
+/* عنوان قسم الدروس */
+#lessons-container h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #4a90e2;
+}
+
+/* قائمة الدروس داخل الوحدة */
+#lessons-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+/* زر الدرس */
+.lesson-button {
+  background-color: #fff;
+  border: 2px solid #7b7b7b;  /* إطار رمادي */
+  color: #7b7b7b;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* تأثير المرور على زر الدرس */
+.lesson-button:hover {
+  background-color: #7b7b7b;
+  color: #fff;
+}
+
+/* تذييل الصفحة */
+footer {
+  background-color: #fff;
+  padding: 1rem 0;
+  text-align: center;
+  border-top: 1px solid #e1e1e1;
+  margin-top: 2rem;
+}
+
+/* روابط التواصل الاجتماعي في التذييل */
+.social-links {
+  margin-bottom: 0.5rem;
+}
+
+/* أيقونات التواصل */
+.social-links a {
+  margin: 0 0.5rem;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  transition: opacity 0.3s;
+}
+
+/* تأثير المرور على الأيقونات */
+.social-links a:hover {
+  opacity: 0.7;
+}
+
+/* حجم الأيقونة */
+.social-links img {
+  width: 100%;
+  height: 100%;
+}
+
+/* نص حقوق النشر */
+footer p {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* تجاوب الواجهة على الشاشات الصغيرة */
+@media (max-width: 600px) {
+  /* جعل أزرار الوحدات والدروس بعرض كامل */
+  .unit-button,
+  .lesson-button {
+    width: 100%;
+  }
+}
