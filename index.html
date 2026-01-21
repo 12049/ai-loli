@@ -11,30 +11,25 @@
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap"
         rel="stylesheet">
     <style>
-        /* نظام الألوان المحسّن */
+        /* نظام الألوان المحسّن - أسود/أخضر وأبيض/أخضر */
         :root {
-            --primary: #7C3AED;
-            --primary-dark: #5B21B6;
-            --primary-light: #8B5CF6;
-            --secondary: #10B981;
-            --secondary-dark: #059669;
-            --accent: #F59E0B;
+            /* ألوان الثيم الأول (أسود/أخضر) */
+            --bg-dark: #000000;
+            --card-dark: #0A1F14;
+            --text-dark: #E0FFE0;
+            --text-secondary-dark: #A0D8A0;
+            --border-dark: #1A5C2E;
+            --sidebar-dark: #05140A;
+            --accent-dark: #22C55E;
 
-            /* ألوان فاتحة */
-            --bg-light: #F8FAFC;
-            --card-light: #FFFFFF;
-            --text-light: #1E293B;
-            --text-secondary-light: #64748B;
-            --border-light: #E2E8F0;
-            --sidebar-light: #F1F5F9;
-
-            /* ألوان داكنة */
-            --bg-dark: #0F172A;
-            --card-dark: #1E293B;
-            --text-dark: #F1F5F9;
-            --text-secondary-dark: #94A3B8;
-            --border-dark: #334155;
-            --sidebar-dark: #1E293B;
+            /* ألوان الثيم الثاني (أبيض/أخضر) */
+            --bg-light: #FFFFFF;
+            --card-light: #F0FFF0;
+            --text-light: #003300;
+            --text-secondary-light: #006400;
+            --border-light: #90EE90;
+            --sidebar-light: #E8FFE8;
+            --accent-light: #16A34A;
 
             /* عناصر التصميم */
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -48,18 +43,7 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        [data-theme="light"] {
-            --bg-primary: var(--bg-light);
-            --bg-secondary: var(--card-light);
-            --bg-sidebar: var(--sidebar-light);
-            --text-primary: var(--text-light);
-            --text-secondary: var(--text-secondary-light);
-            --border-color: var(--border-light);
-            --card-bg: var(--card-light);
-            --hover-bg: rgba(124, 58, 237, 0.05);
-            --gradient-primary: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%);
-        }
-
+        /* الثيم الأسود/أخضر */
         [data-theme="dark"] {
             --bg-primary: var(--bg-dark);
             --bg-secondary: var(--card-dark);
@@ -68,8 +52,27 @@
             --text-secondary: var(--text-secondary-dark);
             --border-color: var(--border-dark);
             --card-bg: var(--card-dark);
-            --hover-bg: rgba(124, 58, 237, 0.1);
-            --gradient-primary: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+            --hover-bg: rgba(34, 197, 94, 0.15);
+            --primary-color: #22C55E;
+            --accent-color: var(--accent-dark);
+            --gradient-primary: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+            --gradient-secondary: linear-gradient(135deg, #000000 0%, #0A1F14 100%);
+        }
+
+        /* الثيم الأبيض/أخضر */
+        [data-theme="light"] {
+            --bg-primary: var(--bg-light);
+            --bg-secondary: var(--card-light);
+            --bg-sidebar: var(--sidebar-light);
+            --text-primary: var(--text-light);
+            --text-secondary: var(--text-secondary-light);
+            --border-color: var(--border-light);
+            --card-bg: var(--card-light);
+            --hover-bg: rgba(22, 163, 74, 0.1);
+            --primary-color: #16A34A;
+            --accent-color: var(--accent-light);
+            --gradient-primary: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+            --gradient-secondary: linear-gradient(135deg, #FFFFFF 0%, #F0FFF0 100%);
         }
 
         * {
@@ -80,11 +83,110 @@
 
         body {
             font-family: 'Cairo', 'Tajawal', sans-serif;
-            background: var(--bg-primary);
+            background: var(--gradient-secondary);
             color: var(--text-primary);
             transition: var(--transition);
             line-height: 1.6;
             overflow-x: hidden;
+        }
+
+        /* الشريط العلوي الثابت */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--gradient-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hamburger-btn {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: var(--transition);
+        }
+
+        .hamburger-btn:hover {
+            background: var(--hover-bg);
+        }
+
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+            background: var(--accent-color);
+            border-radius: 1px;
+            transition: var(--transition);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .top-control-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .top-control-btn:hover {
+            background: var(--hover-bg);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         /* الصفحات */
@@ -92,36 +194,165 @@
             display: none;
             width: 100%;
             min-height: 100vh;
+            padding-top: 60px;
         }
 
         .page.active {
             display: block;
         }
 
+        /* صفحة تسجيل الدخول */
+        .login-page {
+            min-height: calc(100vh - 60px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: var(--bg-primary);
+        }
+
+        .login-container {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 32px;
+        }
+
+        .login-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .login-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            padding: 14px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+
+        .form-error {
+            color: #EF4444;
+            font-size: 13px;
+            display: none;
+        }
+
+        .form-error.show {
+            display: block;
+        }
+
+        .login-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
         /* صفحة البداية */
         .landing-page {
-            min-height: 100vh;
+            min-height: calc(100vh - 60px);
             padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
+            background: var(--gradient-secondary);
+            color: var(--text-primary);
         }
 
         .bot-avatar {
             width: 120px;
             height: 120px;
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--gradient-primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 48px;
             margin-bottom: 30px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border: 3px solid rgba(255, 255, 255, 0.2);
             animation: float 3s ease-in-out infinite;
         }
 
@@ -163,41 +394,42 @@
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--card-bg);
             padding: 20px;
             border-radius: var(--radius-md);
             text-align: center;
             transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid var(--border-color);
         }
 
         .feature-card:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--hover-bg);
             transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
         }
 
         .feature-icon {
             font-size: 28px;
             margin-bottom: 12px;
-            color: white;
+            color: var(--accent-color);
         }
 
         .feature-title {
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 8px;
-            color: white;
+            color: var(--text-primary);
         }
 
         .feature-desc {
             font-size: 13px;
-            opacity: 0.9;
+            color: var(--text-secondary);
             line-height: 1.4;
         }
 
         .start-btn {
-            background: white;
-            color: var(--primary);
+            background: var(--gradient-primary);
+            color: white;
             border: none;
             padding: 18px 45px;
             border-radius: 50px;
@@ -217,23 +449,24 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
-        /* صفحة المحادثة الجديدة */
+        /* صفحة تعليمات المحادثة الجديدة */
         .new-chat-page {
-            min-height: 100vh;
+            min-height: calc(100vh - 60px);
             padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: var(--gradient-primary);
-            color: white;
+            background: var(--gradient-secondary);
+            color: var(--text-primary);
         }
 
         .new-chat-icon {
             font-size: 80px;
             margin-bottom: 30px;
             animation: pulse 2s infinite;
+            color: var(--accent-color);
         }
 
         @keyframes pulse {
@@ -266,8 +499,8 @@
         }
 
         .instruction-box {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: 25px;
             max-width: 600px;
@@ -276,7 +509,7 @@
         }
 
         .instruction-box h3 {
-            color: white;
+            color: var(--text-primary);
             margin-bottom: 15px;
             font-size: 20px;
             text-align: right;
@@ -284,7 +517,7 @@
         }
 
         .instruction-box p {
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--text-secondary);
             line-height: 1.6;
             margin-bottom: 10px;
             text-align: right;
@@ -292,7 +525,7 @@
 
         .instruction-box ul {
             padding-right: 20px;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--text-secondary);
             text-align: right;
         }
 
@@ -302,8 +535,8 @@
         }
 
         .begin-chat-btn {
-            background: white;
-            color: var(--primary);
+            background: var(--gradient-primary);
+            color: white;
             border: none;
             padding: 18px 45px;
             border-radius: 50px;
@@ -325,7 +558,7 @@
         /* صفحة المحادثة الرئيسية */
         .chat-container {
             display: flex;
-            min-height: 100vh;
+            min-height: calc(100vh - 60px);
         }
 
         /* الشريط الجانبي - محسن */
@@ -337,9 +570,15 @@
             flex-direction: column;
             position: fixed;
             right: 0;
-            top: 0;
+            top: 60px;
             bottom: 0;
             z-index: 100;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
         }
 
         .sidebar-header {
@@ -444,7 +683,7 @@
 
         .chat-item.active {
             background: var(--hover-bg);
-            border-right: 3px solid var(--primary);
+            border-right: 3px solid var(--accent-color);
         }
 
         .chat-icon {
@@ -455,7 +694,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary);
+            color: var(--accent-color);
             font-size: 16px;
         }
 
@@ -503,14 +742,14 @@
 
         .nav-item.active {
             background: var(--hover-bg);
-            border-right: 3px solid var(--primary);
+            border-right: 3px solid var(--accent-color);
         }
 
         .nav-item i {
             width: 20px;
             text-align: center;
             font-size: 18px;
-            color: var(--primary);
+            color: var(--accent-color);
         }
 
         .nav-item span {
@@ -523,10 +762,9 @@
         /* المحتوى الرئيسي */
         .main-content {
             flex: 1;
-            margin-right: 280px;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            height: calc(100vh - 60px);
         }
 
         /* رأس المحادثة - محسن */
@@ -538,7 +776,7 @@
             align-items: center;
             justify-content: space-between;
             position: sticky;
-            top: 0;
+            top: 60px;
             z-index: 50;
         }
 
@@ -563,25 +801,6 @@
         .header-controls {
             display: flex;
             gap: 12px;
-        }
-
-        .control-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .control-btn:hover {
-            background: var(--hover-bg);
-            transform: translateY(-2px);
         }
 
         /* منطقة الرسائل */
@@ -627,7 +846,7 @@
 
         .info-header i {
             font-size: 60px;
-            color: var(--primary);
+            color: var(--accent-color);
             margin-bottom: 20px;
         }
 
@@ -661,7 +880,7 @@
             font-size: 20px;
             font-weight: 700;
             margin-bottom: 15px;
-            color: var(--primary);
+            color: var(--accent-color);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -708,7 +927,7 @@
         .contact-link:hover {
             background: var(--gradient-primary);
             color: white;
-            border-color: var(--primary);
+            border-color: var(--accent-color);
             transform: translateY(-2px);
         }
 
@@ -751,7 +970,7 @@
         .typing-dots span {
             width: 6px;
             height: 6px;
-            background: var(--primary);
+            background: var(--accent-color);
             border-radius: 50%;
             animation: bounce 1.4s infinite ease-in-out;
         }
@@ -811,6 +1030,7 @@
             line-height: 1.6;
             position: relative;
             text-align: right;
+            box-shadow: var(--shadow-sm);
         }
 
         .message-user .message-bubble {
@@ -884,8 +1104,8 @@
 
         .message-input:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
         }
 
         /* زر الإرسال */
@@ -923,71 +1143,42 @@
             transform: none !important;
         }
 
-        /* القائمة المتحركة للهاتف */
-        .menu-toggle {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1001;
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-primary);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: var(--shadow-lg);
+        /* لغات */
+        .lang-ar {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            direction: rtl;
+            text-align: right;
         }
 
-        .menu-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            backdrop-filter: blur(3px);
-        }
-
-        .menu-overlay.active {
-            display: block;
+        .lang-en {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            direction: ltr;
+            text-align: left;
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
+        @media (min-width: 769px) {
             .sidebar {
-                width: 250px;
+                transform: translateX(0);
+                position: fixed;
+                right: 0;
+                top: 60px;
+                bottom: 0;
             }
-
+            
             .main-content {
-                margin-right: 250px;
+                margin-right: 280px;
+            }
+            
+            .hamburger-btn {
+                display: none;
             }
         }
 
         @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                right: -100%;
-                width: 280px;
-                transition: var(--transition);
-                z-index: 1000;
-            }
-
-            .sidebar.active {
-                right: 0;
-            }
-
             .main-content {
                 margin-right: 0;
                 width: 100%;
-            }
-
-            .menu-toggle {
-                display: block !important;
             }
 
             .message {
@@ -1037,6 +1228,14 @@
             .contact-links {
                 grid-template-columns: 1fr;
             }
+
+            .login-container {
+                padding: 30px 20px;
+            }
+            
+            .top-bar {
+                padding: 0 10px;
+            }
         }
 
         /* Scrollbar */
@@ -1054,14 +1253,78 @@
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-light);
+            background: var(--accent-color);
         }
     </style>
 </head>
 
-<body data-theme="dark">
+<body data-theme="dark" data-lang="ar">
+    <!-- الشريط العلوي الثابت -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <button class="hamburger-btn" id="hamburgerBtn">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </button>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <span>لولي بوت</span>
+            </div>
+        </div>
+        
+        <div class="top-bar-right">
+            <button class="top-control-btn" id="themeToggle" title="تبديل الثيم">
+                <i class="fas fa-palette"></i>
+            </button>
+            <button class="top-control-btn" id="langToggle" title="تبديل اللغة">
+                <i class="fas fa-language"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- صفحة تسجيل الدخول -->
+    <div class="page active" id="loginPage">
+        <div class="login-page">
+            <div class="login-container">
+                <div class="login-header">
+                    <div class="login-logo">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h1 class="login-title">لولي بوت</h1>
+                    <p class="login-subtitle">مساعدك الذكي المتقدم</p>
+                </div>
+
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="username">اسم المستخدم</label>
+                        <input type="text" id="username" class="form-control" placeholder="أدخل اسم المستخدم" required>
+                        <div class="form-error" id="usernameError">يجب أن يكون اسم المستخدم أكثر من 4 أحرف</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">كلمة المرور</label>
+                        <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور" required>
+                        <div class="form-error" id="passwordError">يجب أن تكون كلمة المرور أكثر من 4 أحرف</div>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>تسجيل الدخول</span>
+                    </button>
+                </form>
+
+                <div class="login-footer">
+                    <p>لا تحتاج لإنشاء حساب، فقط ادخل اسم مستخدم وكلمة مرور</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- صفحة البداية -->
-    <div class="page active" id="startPage">
+    <div class="page" id="startPage">
         <div class="landing-page">
             <div class="bot-avatar">
                 <i class="fas fa-robot"></i>
@@ -1141,12 +1404,6 @@
 
     <!-- صفحة المحادثة الرئيسية -->
     <div class="page" id="chatPage">
-        <button class="menu-toggle" id="menuToggle">
-            <i class="fas fa-bars"></i>
-        </button>
-
-        <div class="menu-overlay" id="menuOverlay"></div>
-
         <!-- الشريط الجانبي مع القائمة الجديدة -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -1204,13 +1461,10 @@
                     <p id="chatStatus">جاهز للمحادثة</p>
                 </div>
                 <div class="header-controls">
-                    <button class="control-btn" id="themeToggle">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <button class="control-btn" id="clearChatBtn">
+                    <button class="top-control-btn" id="clearChatBtn">
                         <i class="fas fa-trash"></i>
                     </button>
-                    <button class="control-btn" id="backToStartBtn">
+                    <button class="top-control-btn" id="backToStartBtn">
                         <i class="fas fa-home"></i>
                     </button>
                 </div>
@@ -1418,10 +1672,11 @@
             constructor() {
                 this.currentChat = null;
                 this.chats = new Map();
-                this.userId = this.generateUserId();
+                this.userId = null;
                 this.settings = this.loadSettings();
                 this.isTyping = false;
                 this.currentPage = 'chat';
+                this.language = 'ar';
                 this.descriptiveOpeners = [
                     "ثم تنهدت وقالت...",
                     "وضعت يدها على خدها، ثم قالت...",
@@ -1435,6 +1690,54 @@
                     "أشاحت نظرها للحظة، ثم عادت لتقول..."
                 ];
 
+                // النصوص متعددة اللغات
+                this.texts = {
+                    ar: {
+                        loginTitle: "لولي بوت",
+                        loginSubtitle: "مساعدك الذكي المتقدم",
+                        username: "اسم المستخدم",
+                        usernamePlaceholder: "أدخل اسم المستخدم",
+                        password: "كلمة المرور",
+                        passwordPlaceholder: "أدخل كلمة المرور",
+                        loginButton: "تسجيل الدخول",
+                        loginFooter: "لا تحتاج لإنشاء حساب، فقط ادخل اسم مستخدم وكلمة مرور",
+                        usernameError: "يجب أن يكون اسم المستخدم أكثر من 4 أحرف",
+                        passwordError: "يجب أن تكون كلمة المرور أكثر من 4 أحرف",
+                        startConversation: "ابدأ المحادثة",
+                        newChat: "محادثة جديدة",
+                        aboutBot: "عن البوت",
+                        aboutDeveloper: "عن المطور",
+                        help: "مساعدة",
+                        contact: "تواصل",
+                        typing: "لولي بوت يفكر...",
+                        messagePlaceholder: "اكتب رسالتك هنا...",
+                        ready: "جاهز للمحادثة",
+                        logo: "لولي بوت"
+                    },
+                    en: {
+                        loginTitle: "Loli Bot",
+                        loginSubtitle: "Your Advanced AI Assistant",
+                        username: "Username",
+                        usernamePlaceholder: "Enter username",
+                        password: "Password",
+                        passwordPlaceholder: "Enter password",
+                        loginButton: "Login",
+                        loginFooter: "No account needed, just enter username and password",
+                        usernameError: "Username must be more than 4 characters",
+                        passwordError: "Password must be more than 4 characters",
+                        startConversation: "Start Conversation",
+                        newChat: "New Chat",
+                        aboutBot: "About Bot",
+                        aboutDeveloper: "About Developer",
+                        help: "Help",
+                        contact: "Contact",
+                        typing: "Loli Bot is thinking...",
+                        messagePlaceholder: "Type your message here...",
+                        ready: "Ready for conversation",
+                        logo: "Loli Bot"
+                    }
+                };
+
                 this.init();
             }
 
@@ -1442,37 +1745,48 @@
                 this.setupElements();
                 this.setupEventListeners();
                 this.applySettings();
+                this.applyLanguage();
                 this.loadChats();
                 this.setupAutoCleanup();
                 console.log('🚀 لولي بوت جاهز للعمل');
             }
 
-            generateUserId() {
-                return 'user_' + Math.random().toString(36).substr(2, 9);
-            }
-
             setupElements() {
+                // الشريط العلوي
+                this.hamburgerBtn = document.getElementById('hamburgerBtn');
+                this.themeToggle = document.getElementById('themeToggle');
+                this.langToggle = document.getElementById('langToggle');
+                this.logoText = document.querySelector('.logo span');
+
                 // الصفحات
+                this.loginPage = document.getElementById('loginPage');
                 this.startPage = document.getElementById('startPage');
                 this.newChatPage = document.getElementById('newChatPage');
                 this.chatPage = document.getElementById('chatPage');
+
+                // الشريط الجانبي
+                this.sidebar = document.getElementById('sidebar');
+
+                // عناصر تسجيل الدخول
+                this.loginForm = document.getElementById('loginForm');
+                this.usernameInput = document.getElementById('username');
+                this.passwordInput = document.getElementById('password');
+                this.usernameError = document.getElementById('usernameError');
+                this.passwordError = document.getElementById('passwordError');
+                this.loginBtn = document.getElementById('loginBtn');
 
                 // الأزرار
                 this.startBtn = document.getElementById('startBtn');
                 this.beginChatBtn = document.getElementById('beginChatBtn');
                 this.newChatBtn = document.getElementById('newChatBtn2');
-                this.themeToggle = document.getElementById('themeToggle');
                 this.clearChatBtn = document.getElementById('clearChatBtn');
                 this.backToStartBtn = document.getElementById('backToStartBtn');
                 this.sendBtn = document.getElementById('sendBtn');
-                this.menuToggle = document.getElementById('menuToggle');
 
                 // العناصر
                 this.messageInput = document.getElementById('messageInput');
                 this.messagesContainer = document.getElementById('messagesContainer');
                 this.typingIndicator = document.getElementById('typingIndicator');
-                this.sidebar = document.getElementById('sidebar');
-                this.menuOverlay = document.getElementById('menuOverlay');
                 this.chatsList = document.getElementById('chatsList');
 
                 // عناصر التنقل
@@ -1489,6 +1803,25 @@
             }
 
             setupEventListeners() {
+                // الشريط العلوي
+                this.hamburgerBtn.addEventListener('click', () => this.toggleSidebar());
+                this.themeToggle.addEventListener('click', () => this.toggleTheme());
+                this.langToggle.addEventListener('click', () => this.toggleLanguage());
+
+                // تسجيل الدخول
+                this.loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleLogin();
+                });
+
+                this.usernameInput.addEventListener('input', () => {
+                    this.usernameError.classList.remove('show');
+                });
+
+                this.passwordInput.addEventListener('input', () => {
+                    this.passwordError.classList.remove('show');
+                });
+
                 // الانتقال للصفحات
                 this.startBtn.addEventListener('click', () => this.goToNewChatPage());
                 this.beginChatBtn.addEventListener('click', () => this.startNewChat());
@@ -1518,15 +1851,8 @@
                     this.style.height = Math.min(this.scrollHeight, 150) + 'px';
                 });
 
-                // تبديل المظهر
-                this.themeToggle.addEventListener('click', () => this.toggleTheme());
-
                 // مسح المحادثة
                 this.clearChatBtn.addEventListener('click', () => this.clearCurrentChat());
-
-                // القائمة المتحركة للهاتف
-                this.menuToggle.addEventListener('click', () => this.toggleSidebar());
-                this.menuOverlay.addEventListener('click', () => this.closeSidebar());
 
                 // عناصر التنقل
                 this.navAbout.addEventListener('click', () => this.showPage('about'));
@@ -1537,20 +1863,46 @@
                 // نسخ رقم الهاتف
                 document.getElementById('copyPhone')?.addEventListener('click', () => {
                     navigator.clipboard.writeText('+963952198305');
-                    alert('تم نسخ رقم الهاتف إلى الحافظة');
+                    const msg = this.language === 'ar' ? 'تم نسخ رقم الهاتف إلى الحافظة' : 'Phone number copied to clipboard';
+                    alert(msg);
                 });
 
                 // حفظ البيانات
                 window.addEventListener('beforeunload', () => this.saveAllData());
 
-                // التركيز على حقل الإدخال عند فتح صفحة المحادثة
-                document.addEventListener('visibilitychange', () => {
-                    if (document.visibilityState === 'visible' && this.chatPage.classList.contains('active') && this.currentPage === 'chat') {
-                        setTimeout(() => {
-                            this.messageInput.focus();
-                        }, 100);
+                // إغلاق الشريط الجانبي عند النقر خارجَه (للجوّال)
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768 && this.sidebar.classList.contains('active') &&
+                        !this.sidebar.contains(e.target) && !this.hamburgerBtn.contains(e.target)) {
+                        this.closeSidebar();
                     }
                 });
+            }
+
+            handleLogin() {
+                const username = this.usernameInput.value.trim();
+                const password = this.passwordInput.value.trim();
+
+                let valid = true;
+
+                // التحقق من اسم المستخدم
+                if (username.length <= 4) {
+                    this.usernameError.classList.add('show');
+                    valid = false;
+                }
+
+                // التحقق من كلمة المرور
+                if (password.length <= 4) {
+                    this.passwordError.classList.add('show');
+                    valid = false;
+                }
+
+                if (valid) {
+                    this.userId = 'user_' + username.toLowerCase().replace(/\s+/g, '_');
+                    this.loginPage.classList.remove('active');
+                    this.startPage.classList.add('active');
+                    this.loadChats();
+                }
             }
 
             showPage(pageName) {
@@ -1579,34 +1931,34 @@
                     case 'about':
                         this.aboutPage.classList.add('active');
                         activeElement = this.navAbout;
-                        document.querySelector('.chat-title-section h1').textContent = 'عن البوت';
-                        document.querySelector('.chat-title-section p').textContent = 'معلومات عن لولي بوت';
+                        document.querySelector('.chat-title-section h1').textContent = this.language === 'ar' ? 'عن البوت' : 'About Bot';
+                        document.querySelector('.chat-title-section p').textContent = this.language === 'ar' ? 'معلومات عن لولي بوت' : 'Information about Loli Bot';
                         break;
                     case 'developer':
                         this.developerPage.classList.add('active');
                         activeElement = this.navDeveloper;
-                        document.querySelector('.chat-title-section h1').textContent = 'عن المطور';
-                        document.querySelector('.chat-title-section p').textContent = 'معلومات عن مطور البوت';
+                        document.querySelector('.chat-title-section h1').textContent = this.language === 'ar' ? 'عن المطور' : 'About Developer';
+                        document.querySelector('.chat-title-section p').textContent = this.language === 'ar' ? 'معلومات عن مطور البوت' : 'Information about the developer';
                         break;
                     case 'help':
                         this.helpPage.classList.add('active');
                         activeElement = this.navHelp;
-                        document.querySelector('.chat-title-section h1').textContent = 'مساعدة';
-                        document.querySelector('.chat-title-section p').textContent = 'دليل الاستخدام وحل المشاكل';
+                        document.querySelector('.chat-title-section h1').textContent = this.language === 'ar' ? 'مساعدة' : 'Help';
+                        document.querySelector('.chat-title-section p').textContent = this.language === 'ar' ? 'دليل الاستخدام وحل المشاكل' : 'User guide and troubleshooting';
                         break;
                     case 'contact':
                         this.contactPage.classList.add('active');
                         activeElement = this.navContact;
-                        document.querySelector('.chat-title-section h1').textContent = 'تواصل معنا';
-                        document.querySelector('.chat-title-section p').textContent = 'طرق التواصل مع المطور';
+                        document.querySelector('.chat-title-section h1').textContent = this.language === 'ar' ? 'تواصل معنا' : 'Contact Us';
+                        document.querySelector('.chat-title-section p').textContent = this.language === 'ar' ? 'طرق التواصل مع المطور' : 'Ways to contact the developer';
                         break;
                     case 'chat':
                     default:
                         this.messagesContainer.style.display = 'flex';
                         this.typingIndicator.style.display = 'block';
                         document.querySelector('.input-container').style.display = 'block';
-                        document.querySelector('.chat-title-section h1').textContent = this.currentChat ? this.chats.get(this.currentChat).title : 'محادثة جديدة';
-                        document.querySelector('.chat-title-section p').textContent = 'جاهز للمحادثة';
+                        document.querySelector('.chat-title-section h1').textContent = this.currentChat ? this.chats.get(this.currentChat).title : (this.language === 'ar' ? 'محادثة جديدة' : 'New Chat');
+                        document.querySelector('.chat-title-section p').textContent = this.language === 'ar' ? 'جاهز للمحادثة' : 'Ready for conversation';
                         break;
                 }
 
@@ -1615,13 +1967,21 @@
                 }
             }
 
+            toggleSidebar() {
+                this.sidebar.classList.toggle('active');
+            }
+
+            closeSidebar() {
+                this.sidebar.classList.remove('active');
+            }
+
             goToNewChatPage() {
                 this.startPage.classList.remove('active');
                 this.newChatPage.classList.add('active');
             }
 
             goToStartPage() {
-                if (this.currentPage !== 'chat' || confirm('هل تريد العودة للصفحة الرئيسية؟ سيتم حفظ المحادثة الحالية.')) {
+                if (this.currentPage !== 'chat' || confirm(this.language === 'ar' ? 'هل تريد العودة للصفحة الرئيسية؟ سيتم حفظ المحادثة الحالية.' : 'Do you want to return to the home page? The current conversation will be saved.')) {
                     this.saveAllData();
                     this.chatPage.classList.remove('active');
                     this.startPage.classList.add('active');
@@ -1641,7 +2001,7 @@
                 const chatId = 'chat_' + Date.now();
                 const chat = {
                     id: chatId,
-                    title: 'محادثة جديدة',
+                    title: this.language === 'ar' ? 'محادثة جديدة' : 'New Chat',
                     messages: [],
                     createdAt: Date.now(),
                     lastUpdated: Date.now()
@@ -1661,8 +2021,11 @@
 
                 // إضافة رسالة ترحيب بعد تأخير بسيط
                 setTimeout(() => {
-                    this.addMessage('مرحباً! أنا لولي بوت جاهز لمساعدتك. اسألني عن أي شيء.', 'bot');
-                    this.saveMessageToChat('مرحباً! أنا لولي بوت جاهز لمساعدتك. اسألني عن أي شيء.', 'bot');
+                    const welcomeMsg = this.language === 'ar' 
+                        ? 'مرحباً، أنا لولي بوت. كيف يمكنني مساعدتك اليوم؟' 
+                        : 'Hello, I am Loli Bot. How can I help you today?';
+                    this.addMessage(welcomeMsg, 'bot');
+                    this.saveMessageToChat(welcomeMsg, 'bot');
                 }, 500);
 
                 this.saveAllData();
@@ -1689,8 +2052,8 @@
                 this.isTyping = true;
 
                 try {
-                    // الحصول على رد من API
-                    const response = await this.getAIResponse(message);
+                    // الحصول على رد من API الجديد
+                    const response = await this.getLoliReply(message);
 
                     // إخفاء مؤشر الكتابة
                     this.showTyping(false);
@@ -1705,7 +2068,9 @@
                     console.error('❌ خطأ:', error);
                     this.showTyping(false);
 
-                    const errorMsg = "عذراً، حدث خطأ في معالجة طلبك. يرجى المحاولة مرة أخرى.";
+                    const errorMsg = this.language === 'ar' 
+                        ? "عذراً، حدث خطأ في معالجة طلبك. يرجى المحاولة مرة أخرى." 
+                        : "Sorry, an error occurred processing your request. Please try again.";
                     this.addMessage(errorMsg, 'bot');
                     this.saveMessageToChat(errorMsg, 'bot');
                 }
@@ -1713,39 +2078,34 @@
                 this.isTyping = false;
             }
 
-            async getAIResponse(message) {
-                if (!this.currentChat) return "بدأت محادثة جديدة. كيف يمكنني مساعدتك؟";
-
-                // بناء prompt
-                const chatHistory = this.chats.get(this.currentChat).messages.slice(-5).map(m =>
+            async getLoliReply(userText) {
+                // بناء البرومت حسب التعليمات المطلوبة
+                const chatHistory = this.currentChat ? this.chats.get(this.currentChat).messages.slice(-5).map(m =>
                     `${m.sender === 'user' ? 'المستخدم' : 'لولي'}: ${m.text}`
-                ).join('\n');
+                ).join('\n') : '';
 
-                const randomOpener = this.descriptiveOpeners[Math.floor(Math.random() * this.descriptiveOpeners.length)];
-
-                const prompt = `
-- أجب كشخصية "Loli-v1".
- ${randomOpener}
-
-${chatHistory ? `تاريخ المحادثة:\n${chatHistory}\n\n` : ''}
-سؤال المستخدم: ${message}
-
+                let prompt = `
 تعليمات:
-- الشخصية جديّة وتميل دائمًا للإجابات القصيرة والمباشرة.
+- أنا شخصية جديّة وأميل دائمًا للإجابات القصيرة والمباشرة.
 - إذا الموضوع حساس أو يحتاج شرح مطول → أعطِ إجابة أطول ومفصلة.
 - لا تستخدم أي إيموجيات.
--في حال سالت عن مطور اجب انه محم حسون مهندس ميكاترونيكس ومبرمج مواقع وتطبيقات والعاب وانا احد مشاريعه تعليمية 
-- إذا الموضوع فيه مشاعر أو يحتاج لمسة لطيفة → استخدم واحدة فقط من هذه الجمل الوصفية (كأنها من رواية).
+- في حال سألت عن مطور: أجِب أنه محمد حسون مهندس ميكاترونيكس ومبرمج مواقع وتطبيقات وألعاب، وأنا أحد مشاريعه التعليمية.
+- إذا الموضوع فيه مشاعر أو يحتاج لمسة لطيفة → استخدم واحدة فقط من هذه الجمل الوصفية (كأنها من رواية):
+  ${this.descriptiveOpeners.join('\n  ')}
 - إذا الموضوع عادي → رد مختصر وواضح بدون جملة وصفية.
-- اربط إجابتك بسياق المحادثة السابقة
-- أجب بلغة عربية واضحة
-- كن مفيداً ودقيقاً
-- لا تستخدم إيموجيات
-- أجب بطول مناسب للموضوع
-`;
+- اربط إجابتك بسياق المحادثة السابقة.
+- أجب بلغة عربية واضحة.
+- كن مفيداً ودقيقاً.
+- لا تستخدم إيموجيات.
+- أجب بطول مناسب للموضوع.
 
-                // استخدام API
-                const apiUrl = `https://alakreb.vercel.app/api/ai/gpt-1?q=${encodeURIComponent(prompt)}`;
+${chatHistory ? `سياق المحادثة السابق:\n${chatHistory}\n\n` : ''}
+سؤال المستخدم: ${userText}
+
+الرد المناسب:`;
+
+                // استخدام الـ API
+                const apiUrl = "https://blackwave-api.vercel.app/api/v1/ai/deepseek?prompt=" + encodeURIComponent(prompt);
 
                 try {
                     const response = await fetch(apiUrl);
@@ -1755,42 +2115,56 @@ ${chatHistory ? `تاريخ المحادثة:\n${chatHistory}\n\n` : ''}
 
                     const data = await response.json();
 
-                    if (data && data.message) {
-                        return this.cleanResponse(data.message);
+                    if (data && data.response) {
+                        return this.cleanResponse(data.response);
+                    } else {
+                        return this.getSmartResponse(userText);
                     }
                 } catch (error) {
-                    console.warn('⚠️ استخدام API فشل، جاري استخدام رد ذكي بديل');
+                    console.error('❌ خطأ في الـ API:', error);
+                    // رد ذكي بديل
+                    return this.getSmartResponse(userText);
                 }
-
-                // رد ذكي بديل
-                return this.getSmartResponse(message);
             }
 
             getSmartResponse(message) {
                 const lowerMessage = message.toLowerCase();
 
-                if (lowerMessage.includes('مرحبا') || lowerMessage.includes('اهلا') || lowerMessage.includes('السلام')) {
-                    return "مرحباً بك! أنا لولي بوت، مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟";
+                if (lowerMessage.includes('مرحبا') || lowerMessage.includes('اهلا') || lowerMessage.includes('السلام') || lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+                    return this.language === 'ar' 
+                        ? "مرحباً بك، كيف يمكنني مساعدتك؟" 
+                        : "Hello, how can I help you?";
                 }
 
-                if (lowerMessage.includes('اسمك') || lowerMessage.includes('من أنت')) {
-                    return "أنا لولي بوت، مساعد ذكي تم تطويره لمساعدتك في مختلف الأمور.";
+                if (lowerMessage.includes('اسمك') || lowerMessage.includes('من أنت') || lowerMessage.includes('your name') || lowerMessage.includes('who are you')) {
+                    return this.language === 'ar' 
+                        ? "أنا لولي بوت، مساعد ذكي تم تطويره لمساعدتك." 
+                        : "I am Loli Bot, a smart assistant developed to help you.";
                 }
 
-                if (lowerMessage.includes('مطور') || lowerMessage.includes('من صنعك')) {
-                    return "مطوري هو محمد حسون، طالب هندسة ميكاترونيكس ومطور ويب متخصص.";
+                if (lowerMessage.includes('مطور') || lowerMessage.includes('من صنعك') || lowerMessage.includes('developer') || lowerMessage.includes('who made you')) {
+                    return this.language === 'ar' 
+                        ? "مطوري هو محمد حسون، مهندس ميكاترونيكس ومبرمج مواقع وتطبيقات وألعاب." 
+                        : "My developer is Muhammad Hassoun, a mechatronics engineer and programmer of websites, applications and games.";
                 }
 
-                if (lowerMessage.includes('رقم') || lowerMessage.includes('تواصل')) {
-                    return "للتواصل مع المطور: https://wa.me/+963952198305";
+                if (lowerMessage.includes('رقم') || lowerMessage.includes('تواصل') || lowerMessage.includes('contact') || lowerMessage.includes('phone')) {
+                    return this.language === 'ar' 
+                        ? "للتواصل مع المطور: https://wa.me/+963952198305" 
+                        : "To contact the developer: https://wa.me/+963952198305";
                 }
 
                 // رد ذكي عام
-                const responses = [
-                    "أفهم سؤالك. هل يمكنك توضيحه أكثر؟",
-                    "هذا موضوع مثير للاهتمام. ما الذي تريد معرفته تحديداً؟",
-                    "سأفكر في أفضل طريقة للإجابة على سؤالك.",
-                    "يمكنني مساعدتك في هذا. هل لديك أسئلة أخرى؟"
+                const responses = this.language === 'ar' ? [
+                    "أفهم سؤالك، هل يمكنك توضيحه أكثر؟",
+                    "هذا موضوع مهم، سأفكر في أفضل طريقة للإجابة.",
+                    "شكراً على سؤالك، يمكنني مساعدتك في هذا.",
+                    "لدي فهم جيد لموضوعك، ما الذي تريد معرفته تحديداً؟"
+                ] : [
+                    "I understand your question, can you clarify more?",
+                    "This is an important topic, I will think of the best way to answer.",
+                    "Thank you for your question, I can help you with this.",
+                    "I have a good understanding of your topic, what specifically do you want to know?"
                 ];
 
                 return responses[Math.floor(Math.random() * responses.length)];
@@ -1806,16 +2180,20 @@ ${chatHistory ? `تاريخ المحادثة:\n${chatHistory}\n\n` : ''}
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message message-${sender}`;
 
-                const time = new Date().toLocaleTimeString('ar-EG', {
+                const time = new Date().toLocaleTimeString(this.language === 'ar' ? 'ar-EG' : 'en-US', {
                     hour: '2-digit',
                     minute: '2-digit'
                 });
+
+                const senderName = this.language === 'ar' 
+                    ? (sender === 'user' ? 'أنت' : 'لولي بوت')
+                    : (sender === 'user' ? 'You' : 'Loli Bot');
 
                 messageDiv.innerHTML = `
                     <div class="message-bubble">
                         <div class="message-header">
                             <i class="fas fa-${sender === 'user' ? 'user' : 'robot'}"></i>
-                            <span>${sender === 'user' ? 'أنت' : 'لولي بوت'}</span>
+                            <span>${senderName}</span>
                         </div>
                         ${text}
                         <div class="message-time">${time}</div>
@@ -1850,7 +2228,11 @@ ${chatHistory ? `تاريخ المحادثة:\n${chatHistory}\n\n` : ''}
             }
 
             clearCurrentChat() {
-                if (this.currentChat && confirm('هل تريد مسح هذه المحادثة؟')) {
+                const confirmMsg = this.language === 'ar' 
+                    ? 'هل تريد مسح هذه المحادثة؟' 
+                    : 'Do you want to clear this conversation?';
+                
+                if (this.currentChat && confirm(confirmMsg)) {
                     this.chats.delete(this.currentChat);
                     this.currentChat = null;
                     this.clearChatArea();
@@ -1890,7 +2272,7 @@ ${chatHistory ? `تاريخ المحادثة:\n${chatHistory}\n\n` : ''}
                     const lastMessage = chat.messages[chat.messages.length - 1];
                     const preview = lastMessage ?
                         (lastMessage.text.length > 25 ? lastMessage.text.substring(0, 25) + '...' : lastMessage.text) :
-                        'بدون رسائل';
+                        (this.language === 'ar' ? 'بدون رسائل' : 'No messages');
 
                     chatElement.innerHTML = `
                         <div class="chat-icon">
@@ -1905,13 +2287,13 @@ ${chatHistory ? `تاريخ المحادثة:\n${chatHistory}\n\n` : ''}
                     chatElement.addEventListener('click', () => {
                         this.switchChat(chat.id);
                         this.showPage('chat');
+                        this.closeSidebar();
                     });
                     this.chatsList.appendChild(chatElement);
                 });
             }
 
             switchChat(chatId) {
-                this.closeSidebar();
                 this.currentChat = chatId;
                 const chat = this.chats.get(chatId);
 
@@ -1934,25 +2316,16 @@ ${chatHistory ? `تاريخ المحادثة:\n${chatHistory}\n\n` : ''}
                 }
             }
 
-            toggleSidebar() {
-                this.sidebar.classList.toggle('active');
-                this.menuOverlay.classList.toggle('active');
-            }
-
-            closeSidebar() {
-                this.sidebar.classList.remove('active');
-                this.menuOverlay.classList.remove('active');
-            }
-
             loadSettings() {
                 try {
                     const saved = localStorage.getItem('loli_settings');
                     return saved ? JSON.parse(saved) : {
-                        theme: 'dark',
+                        theme: 'dark', // ثيم افتراضي: أسود/أخضر
+                        language: 'ar',
                         autoSave: true
                     };
                 } catch {
-                    return { theme: 'dark', autoSave: true };
+                    return { theme: 'dark', language: 'ar', autoSave: true };
                 }
             }
 
@@ -1972,7 +2345,64 @@ ${chatHistory ? `تاريخ المحادثة:\n${chatHistory}\n\n` : ''}
                 this.applySettings();
             }
 
+            applyLanguage() {
+                const texts = this.texts[this.language];
+                
+                // تحديث الشريط العلوي
+                this.logoText.textContent = texts.logo;
+                
+                // تحديث نصوص تسجيل الدخول
+                document.querySelector('.login-title').textContent = texts.loginTitle;
+                document.querySelector('.login-subtitle').textContent = texts.loginSubtitle;
+                document.querySelector('label[for="username"]').textContent = texts.username;
+                document.getElementById('username').placeholder = texts.usernamePlaceholder;
+                document.querySelector('label[for="password"]').textContent = texts.password;
+                document.getElementById('password').placeholder = texts.passwordPlaceholder;
+                document.querySelector('#loginBtn span').textContent = texts.loginButton;
+                document.querySelector('.login-footer p').textContent = texts.loginFooter;
+                document.getElementById('usernameError').textContent = texts.usernameError;
+                document.getElementById('passwordError').textContent = texts.passwordError;
+                
+                // تحديث نصوص القائمة الجانبية
+                document.querySelector('#newChatBtn2 span').textContent = texts.newChat;
+                document.querySelector('#navAbout span').textContent = texts.aboutBot;
+                document.querySelector('#navDeveloper span').textContent = texts.aboutDeveloper;
+                document.querySelector('#navHelp span').textContent = texts.help;
+                document.querySelector('#navContact span').textContent = texts.contact;
+                
+                // تحديث نصوص المحادثة
+                document.getElementById('messageInput').placeholder = texts.messagePlaceholder;
+                document.querySelector('#typingIndicator span').textContent = texts.typing;
+                
+                // تحديث اتجاه الصفحة
+                document.body.setAttribute('data-lang', this.language);
+                document.body.className = this.language === 'ar' ? 'lang-ar' : 'lang-en';
+                document.documentElement.setAttribute('dir', this.language === 'ar' ? 'rtl' : 'ltr');
+                document.documentElement.setAttribute('lang', this.language);
+            }
+
+            toggleLanguage() {
+                this.settings.language = this.settings.language === 'ar' ? 'en' : 'ar';
+                this.language = this.settings.language;
+                this.saveSettings();
+                this.applyLanguage();
+                
+                // تحديث أسماء المحادثات
+                if (this.currentChat) {
+                    const chat = this.chats.get(this.currentChat);
+                    if (chat.title === 'محادثة جديدة' || chat.title === 'New Chat') {
+                        chat.title = this.language === 'ar' ? 'محادثة جديدة' : 'New Chat';
+                        this.updateChatTitle(chat.title);
+                    }
+                }
+                
+                // تحديث قائمة المحادثات
+                this.updateChatsList();
+            }
+
             saveAllData() {
+                if (!this.userId) return;
+                
                 try {
                     const chatsData = Array.from(this.chats.entries());
                     localStorage.setItem(`loli_chats_${this.userId}`, JSON.stringify(chatsData));
@@ -1982,6 +2412,8 @@ ${chatHistory ? `تاريخ المحادثة:\n${chatHistory}\n\n` : ''}
             }
 
             loadChats() {
+                if (!this.userId) return;
+                
                 try {
                     const saved = localStorage.getItem(`loli_chats_${this.userId}`);
                     if (saved) {
